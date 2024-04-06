@@ -2,6 +2,7 @@
 package com.dan232.pricer.scraper.mathom;
 
 import com.dan232.pricer.scraper.ScraperPort;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MathomScraperTest {
@@ -10,13 +11,17 @@ public class MathomScraperTest {
     public void testNew(){
         ScraperPort scraperAdapter = new MathomNewGamesScraperAdapter();
 
-        scraperAdapter.scrapWeb().forEach(System.out::println);
+        if (scraperAdapter.scrapWeb().isEmpty()){
+            Assertions.fail();
+        }
     }
 
     @Test
     public void testOffer(){
-        ScraperPort scraperAdapter = new MathomOffersScraperAdapter();
+        MathomOffersScraperAdapter scraperAdapter = new MathomOffersScraperAdapter();
 
-        scraperAdapter.scrapWeb().forEach(System.out::println);
+        if (scraperAdapter.scrapWeb(2).isEmpty()){
+            Assertions.fail();
+        }
     }
 }
