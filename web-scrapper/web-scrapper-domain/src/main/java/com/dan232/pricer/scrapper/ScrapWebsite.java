@@ -1,3 +1,4 @@
+// Copyright (c) 2022 Daniel de la Concepción Sáez
 package com.dan232.pricer.scrapper;
 
 public interface ScrapWebsite {

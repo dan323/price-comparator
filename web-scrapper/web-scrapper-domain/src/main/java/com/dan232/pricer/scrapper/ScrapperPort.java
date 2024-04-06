@@ -1,18 +1,17 @@
+// Copyright (c) 2022 Daniel de la Concepción Sáez
 package com.dan232.pricer.scrapper;
 
-import com.dan232.pricer.scrapper.model.GamePrice;
+import com.dan232.pricer.scrapper.model.WebProductPrice;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public interface ScrapperPort {
 
-    default List<GamePrice> scrapWeb(){
-        return scrapWebForIds().stream().map(this::scrapWeb).collect(Collectors.toList());
-    }
-
-    GamePrice scrapWeb(String gameId);
-
-    List<String> scrapWebForIds();
+    /**
+     * Scrap the website for pricing information of products
+     *
+     * @return list of pricing information
+     */
+    List<WebProductPrice> scrapWeb();
 
 }

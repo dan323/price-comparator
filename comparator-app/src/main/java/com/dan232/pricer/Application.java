@@ -1,3 +1,4 @@
+// Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer;
 
 import org.springframework.boot.SpringApplication;
