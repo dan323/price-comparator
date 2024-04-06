@@ -3,7 +3,7 @@ package com.dan232.pricer.scraper.model;
 
 import java.net.URL;
 
-public record WebProductPrice(String id,
+public record WebProductPrice(String EAN,
                               String productName,
                               double price,
                               URL homeSite,

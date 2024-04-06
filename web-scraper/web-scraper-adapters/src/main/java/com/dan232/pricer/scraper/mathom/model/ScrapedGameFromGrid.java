@@ -1,6 +1,7 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.scraper.mathom.model;
 
+import com.dan232.pricer.scraper.EANUtil;
 import com.dan232.pricer.scraper.mathom.MathomUtils;
 import com.dan232.pricer.scraper.model.WebProductPrice;
 import org.jsoup.nodes.Attribute;
@@ -10,6 +11,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class ScrapedGameFromGrid {
 
@@ -34,10 +36,18 @@ public class ScrapedGameFromGrid {
     }
 
     public Optional<WebProductPrice> toModel() {
-        return getName().flatMap(name -> getMeta().getPrice().flatMap(price -> getMeta().getDetailsURL().map(url ->
+        return getName().flatMap(name -> getMeta().getPrice().flatMap(price -> getMeta().getDetailsURL().flatMap(url ->
         {
             try {
-                return new WebProductPrice(name + "@MATHOM", name, price, URI.create(url).toURL(), MathomUtils.sendPrice(price));
+                Pattern pattern = Pattern.compile(".*-([^-]*)\\.html$");
+                var matcher = pattern.matcher(url);
+                if (matcher.matches()) {
+                    var ean = matcher.group(1);
+                    if (EANUtil.validateEAN13(ean)) {
+                        return Optional.of(new WebProductPrice(ean, name, price, URI.create(url).toURL(), MathomUtils.sendPrice(price)));
+                    }
+                }
+                return Optional.empty();
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }

@@ -21,17 +21,17 @@ public class ScrapedGameFromGrid {
     }
 
     public Optional<WebProductPrice> toModel() {
-        return getDetailURL().flatMap(url -> goTo().flatMap(detail -> detail.getName().flatMap(name -> getPrice().map(price ->
+        return getDetailURL().flatMap(url -> goTo().flatMap(detail -> detail.getName().flatMap(name -> detail.getEAN().flatMap(ean -> getPrice().map(price ->
         {
             try {
-                return new WebProductPrice(name + "#DUNGEON", name, price, URI.create(url).toURL(), 5.90);
+                return new WebProductPrice(ean, name, price, URI.create(url).toURL(), 5.90);
             } catch (MalformedURLException e) {
                 throw new RuntimeException(e);
             }
-        }))));
+        })))));
     }
 
-    private Optional<ScrapedDetailGame> goTo(){
+    private Optional<ScrapedDetailGame> goTo() {
         return getDetailURL().map(url -> {
             try {
                 return new ScrapedDetailGame(Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36")
