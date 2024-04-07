@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <suppress checks=".*" files=".*Application\.java"/>
+    <suppress checks=".*" files=".*Configuration\.java"/>
+    <suppress checks="JavadocVariable" files=".*"/>
+    <suppress checks="MagicNumber" files="EANUtil\.java"/>
+    <suppress checks="MagicNumber" files="MathomUtils\.java"/>
+    <suppress checks="MissingJavadocMethod" files=".*(Resource|Controller)\.java"/>
+</suppressions>

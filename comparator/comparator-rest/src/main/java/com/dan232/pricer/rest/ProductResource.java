@@ -16,14 +16,15 @@ public class ProductResource {
 
     private final ProductQueryUseCase useCase;
 
-    public ProductResource(ProductQueryUseCase useCase){
-        this.useCase = useCase;
+    public ProductResource(final ProductQueryUseCase queryUseCase) {
+        this.useCase = queryUseCase;
     }
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<ProductPriced> getProductById(@PathVariable String productId){
+    public ResponseEntity<ProductPriced>
+    getProductById(final @PathVariable String productId) {
         var product = useCase.getProduct(productId).perform();
-        if (product != null){
+        if (product != null) {
             return ResponseEntity.ok(product);
         } else {
             return ResponseEntity.notFound().build();
@@ -31,9 +32,9 @@ public class ProductResource {
     }
 
     @GetMapping("/product")
-    public ResponseEntity<List<ProductBasic>> getAllProducts(){
+    public ResponseEntity<List<ProductBasic>> getAllProducts() {
         var products = useCase.getProducts().perform();
-        if (products == null || products.isEmpty()){
+        if (products == null || products.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(products);
@@ -41,9 +42,10 @@ public class ProductResource {
     }
 
     @GetMapping("/product/category/{category}")
-    public ResponseEntity<List<ProductBasic>> getProductsByCategory(@PathVariable String category){
+    public ResponseEntity<List<ProductBasic>>
+    getProductsByCategory(final @PathVariable String category) {
         var products = useCase.getProductsByCategory(category).perform();
-        if (products == null || products.isEmpty()){
+        if (products == null || products.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(products);

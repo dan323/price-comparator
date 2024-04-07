@@ -8,7 +8,7 @@ import java.util.List;
 public interface ScraperPort {
 
     /**
-     * Scrap the website for pricing information of products
+     * Scrap the website for pricing information of products.
      *
      * @return list of pricing information
      */
