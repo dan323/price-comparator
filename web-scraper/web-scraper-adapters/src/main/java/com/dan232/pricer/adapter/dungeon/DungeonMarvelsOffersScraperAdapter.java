@@ -2,7 +2,7 @@
 package com.dan232.pricer.adapter.dungeon;
 
 import com.dan232.pricer.adapter.dungeon.model.ScrapablePageableGridPage;
-import com.dan232.pricer.scraper.ScraperPort;
+import com.dan232.pricer.scraper.port.ScraperPort;
 import com.dan232.pricer.scraper.model.WebProductPrice;
 import org.jsoup.Jsoup;
 

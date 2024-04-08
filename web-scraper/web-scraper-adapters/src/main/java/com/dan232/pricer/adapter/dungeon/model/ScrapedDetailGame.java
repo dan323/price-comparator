@@ -1,7 +1,6 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.adapter.dungeon.model;
 
-import com.dan232.pricer.adapter.EANUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -34,7 +33,6 @@ public class ScrapedDetailGame {
                         .getValue()
                         .equals("gtin13"))
                 .findFirst()
-                .map(Element::text)
-                .filter(EANUtil::validateEAN13);
+                .map(Element::text);
     }
 }

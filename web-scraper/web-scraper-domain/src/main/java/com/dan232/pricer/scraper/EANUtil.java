@@ -1,5 +1,5 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
-package com.dan232.pricer.adapter;
+package com.dan232.pricer.scraper;
 
 public final class EANUtil {
 

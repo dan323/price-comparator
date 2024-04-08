@@ -1,7 +1,6 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.adapter.mathom.model;
 
-import com.dan232.pricer.adapter.EANUtil;
 import com.dan232.pricer.scraper.model.WebProductPrice;
 import org.jsoup.nodes.Attribute;
 import org.jsoup.nodes.Element;
@@ -60,17 +59,15 @@ public class ScrapedGameFromGrid {
                                 var matcher = pattern.matcher(url);
                                 if (matcher.matches()) {
                                     var ean = matcher.group(1);
-                                    if (EANUtil.validateEAN13(ean)) {
-                                        return Optional.of(
-                                                new WebProductPrice(ean,
-                                                        name,
-                                                        price,
-                                                        URI.create(url).toURL(),
-                                                        MathomUtils
-                                                                .sendPrice(
-                                                                        price),
-                                                        "MATHOM"));
-                                    }
+                                    return Optional.of(
+                                            new WebProductPrice(ean,
+                                                    name,
+                                                    price,
+                                                    URI.create(url).toURL(),
+                                                    MathomUtils
+                                                            .sendPrice(
+                                                                    price),
+                                                    "MATHOM"));
                                 }
                                 return Optional.empty();
                             } catch (MalformedURLException e) {

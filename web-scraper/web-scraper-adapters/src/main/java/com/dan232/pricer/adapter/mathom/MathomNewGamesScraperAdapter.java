@@ -2,7 +2,7 @@
 package com.dan232.pricer.adapter.mathom;
 
 import com.dan232.pricer.adapter.mathom.model.ScrapableGridPage;
-import com.dan232.pricer.scraper.ScraperPort;
+import com.dan232.pricer.scraper.port.ScraperPort;
 import com.dan232.pricer.scraper.model.WebProductPrice;
 import org.jsoup.Jsoup;
 
