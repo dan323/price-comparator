@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Daniel de la Concepción Sáez
+// Copyright (c) 2022-2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.scraper.port;
 
 import com.dan232.pricer.scraper.model.WebProductPrice;
