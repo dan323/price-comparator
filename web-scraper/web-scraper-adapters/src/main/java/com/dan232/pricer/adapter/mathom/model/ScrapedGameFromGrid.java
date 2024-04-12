@@ -16,7 +16,7 @@ public class ScrapedGameFromGrid {
     private final Element game;
 
     public ScrapedGameFromGrid(final Element scrapedGame) {
-        if (scrapedGame.is("div.pro_second_box")) {
+        if (scrapedGame.is("div.pro_outer_box")) {
             this.game = scrapedGame;
         } else {
             var message =
@@ -42,6 +42,12 @@ public class ScrapedGameFromGrid {
                 .map(Attribute::getValue);
     }
 
+    public Optional<String> getImage() {
+        return Optional.ofNullable(game.selectFirst("img"))
+                .map(element -> element.attribute("src"))
+                .map(Attribute::getValue);
+    }
+
     /**
      * Transform scraped data to model.
      *
@@ -52,27 +58,32 @@ public class ScrapedGameFromGrid {
                 .getPrice()
                 .flatMap(price -> getMeta()
                         .getDetailsURL()
-                        .flatMap(url -> {
-                            try {
-                                Pattern pattern =
-                                        Pattern.compile(".*-([^-]*)\\.html$");
-                                var matcher = pattern.matcher(url);
-                                if (matcher.matches()) {
-                                    var ean = matcher.group(1);
-                                    return Optional.of(
-                                            new WebProductPrice(ean,
-                                                    name,
-                                                    price,
-                                                    URI.create(url).toURL(),
-                                                    MathomUtils
-                                                            .sendPrice(
-                                                                    price),
-                                                    "MATHOM"));
-                                }
-                                return Optional.empty();
-                            } catch (MalformedURLException e) {
-                                throw new RuntimeException(e);
-                            }
-                        })));
+                        .flatMap(url -> getImage()
+                                .flatMap(image -> {
+                                    try {
+                                        Pattern pattern =
+                                                Pattern.compile(".*-([^-]*)\\.html$");
+                                        var matcher = pattern.matcher(url);
+                                        if (matcher.matches()) {
+                                            var ean = matcher.group(1);
+                                            return Optional.of(
+                                                    new WebProductPrice(ean,
+                                                            name,
+                                                            price,
+                                                            URI.create(url).toURL(),
+                                                            MathomUtils
+                                                                    .sendPrice(
+                                                                            price),
+                                                            "MATHOM",
+                                                            URI.create(image).toURL()));
+                                        }
+                                        return Optional.empty();
+                                    } catch (MalformedURLException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                })
+                        )
+                )
+        );
     }
 }

@@ -18,7 +18,6 @@ final class ScrapUseCase implements ScrapWebsite.ScrapWebsites {
         this.savePort = memory;
     }
 
-
     @Override
     public void perform() {
         scraperPorts.stream()

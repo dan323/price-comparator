@@ -8,6 +8,7 @@ public record WebProductPrice(String EAN,
                               double price,
                               URL homeSite,
                               double sendPrice,
-                              String shopName) {
+                              String shopName,
+                              URL image) {
 
 }

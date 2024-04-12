@@ -17,7 +17,8 @@ public class Models {
                 RANDOM.nextDouble(),
                 new URI("https://www.someSite.com").toURL(),
                 RANDOM.nextDouble(),
-                "SHOP"+shopCount);
+                "SHOP" + shopCount,
+                new URI("http://www.someSite.com/image.jpg").toURL());
     }
 
     public static String randomEan() {

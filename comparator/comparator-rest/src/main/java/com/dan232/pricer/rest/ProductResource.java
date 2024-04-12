@@ -1,7 +1,7 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.rest;
 
-import com.dan232.pricer.comparator.ProductQueryUseCase;
+import com.dan232.pricer.comparator.port.ProductQueryUseCase;
 import com.dan232.pricer.comparator.model.ProductBasic;
 import com.dan232.pricer.comparator.model.ProductPriced;
 import org.springframework.http.ResponseEntity;

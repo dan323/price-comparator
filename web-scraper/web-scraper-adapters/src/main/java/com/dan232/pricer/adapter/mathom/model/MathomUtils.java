@@ -32,7 +32,7 @@ public final class MathomUtils {
         return elms.select("li")
                 .stream()
                 .map(liElement -> liElement
-                        .selectFirst("div.pro_second_box")
+                        .selectFirst("div.pro_outer_box")
                 );
     }
 

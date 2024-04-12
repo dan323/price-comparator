@@ -32,18 +32,21 @@ public class ScrapedGameFromGrid {
                 .flatMap(detail -> detail.getName()
                         .flatMap(name -> detail.getEAN()
                                 .flatMap(ean -> getPrice()
-                                        .map(price -> {
-                                            try {
-                                                return new WebProductPrice(ean,
-                                                        name,
-                                                        price,
-                                                        URI.create(url).toURL(),
-                                                        SEND_PRICE,
-                                                        "DUNGEONS MARVEL");
-                                            } catch (MalformedURLException e) {
-                                                throw new RuntimeException(e);
-                                            }
-                                        })
+                                        .flatMap(price ->
+                                                detail.getImage().map(image ->
+                                                {
+                                                    try {
+                                                        return new WebProductPrice(ean,
+                                                                name,
+                                                                price,
+                                                                URI.create(url).toURL(),
+                                                                SEND_PRICE,
+                                                                "DUNGEONS MARVEL", URI.create(image).toURL());
+                                                    } catch (MalformedURLException e) {
+                                                        throw new RuntimeException(e);
+                                                    }
+                                                })
+                                        )
                                 )
                         )
                 )

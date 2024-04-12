@@ -1,5 +1,5 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
-package com.dan232.pricer.comparator;
+package com.dan232.pricer.comparator.port;
 
 import com.dan232.pricer.comparator.model.ProductBasic;
 import com.dan232.pricer.comparator.model.ProductPriced;
