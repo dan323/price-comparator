@@ -1,4 +1,10 @@
-spring.datasource:
-  url: jdbc:postgresql://localhost:32768/mydatabase
-  username: myuser
-  password: secret
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:32768/mydatabase
+    username: myuser
+    password: secret
+  sql.init:
+    mode: always
+    schema-locations: classpath:/schema.sql
+  jpa.hibernate.ddl-auto: none
+  jpa.show-sql: true

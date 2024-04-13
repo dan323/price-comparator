@@ -12,13 +12,6 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean
-    public SavePort savePort(){
-        return webProductPrice -> {
-            // Do nothing
-        };
-    }
-
-    @Bean
     public ScraperPort mathomOffers(){
         return new MathomOffersScraperAdapter();
     }
