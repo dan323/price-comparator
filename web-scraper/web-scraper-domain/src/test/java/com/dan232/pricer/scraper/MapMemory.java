@@ -20,13 +20,16 @@ public class MapMemory implements SavePort {
      * @param webProductPrice model to save
      */
     @Override
-    public void save(final WebProductPrice webProductPrice) {
+    public WebProductPrice save(final WebProductPrice webProductPrice) {
         if (!isInProduct(webProductPrice.EAN())) {
             saveInProduct(webProductPrice);
+            return webProductPrice;
         }
         if (!isInProductInShop(webProductPrice.EAN(), webProductPrice.shopName())) {
             saveInProductInShop(webProductPrice);
+            return webProductPrice;
         }
+        return inMemoryData.get(webProductPrice.EAN()).get(webProductPrice.shopName());
     }
 
     private void saveInProductInShop(final WebProductPrice webProductPrice) {

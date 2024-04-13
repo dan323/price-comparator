@@ -12,5 +12,5 @@ public interface SavePort {
      * @param webProductPrice model to save
      * @throws IOException in case the state could not be updated properly
      */
-    void save(WebProductPrice webProductPrice) throws IOException;
+    WebProductPrice save(WebProductPrice webProductPrice) throws IOException;
 }
