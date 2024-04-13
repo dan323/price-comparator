@@ -1,9 +1,10 @@
 create table if not exists product (
-    id varchar primary key,
-    shopName varchar primary key,
+    id varchar,
+    shopName varchar,
     name varchar not null,
-    price double,
+    price double PRECISION,
     homeSite varchar,
-    sendPrice double,
-    image varchar
+    sendPrice double PRECISION,
+    image varchar,
+    CONSTRAINT product_pkey PRIMARY KEY (id, shopName)
 );
