@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-public class BeanConfiguration {
+public class UseCaseBeanConfiguration {
 
     @Bean
     public ScrapWebsite scrapWebsite(List<ScraperPort> scrapers, SavePort savePort) {

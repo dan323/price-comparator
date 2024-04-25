@@ -11,17 +11,13 @@ public class MathomScraperTest {
     public void testNew(){
         ScraperPort scraperAdapter = new MathomNewGamesScraperAdapter();
 
-        if (scraperAdapter.scrapWeb().isEmpty()){
-            Assertions.fail();
-        }
+        Assertions.assertFalse(scraperAdapter.scrapWeb().isEmpty());
     }
 
     @Test
     public void testOffer(){
         MathomOffersScraperAdapter scraperAdapter = new MathomOffersScraperAdapter();
 
-        if (scraperAdapter.scrapWeb(2).isEmpty()){
-            Assertions.fail();
-        }
+        Assertions.assertFalse(scraperAdapter.scrapWeb(2).isEmpty());
     }
 }

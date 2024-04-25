@@ -7,5 +7,5 @@ module comparator.exec {
     requires java.sql;
     requires spring.data.jpa;
     opens com.dan232.pricer to spring.core, spring.beans, spring.context;
-    //V8G91H
+    requires web.scraper.adapters;
 }
