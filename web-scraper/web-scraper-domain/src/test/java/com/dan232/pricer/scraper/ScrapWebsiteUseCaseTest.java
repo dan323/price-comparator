@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ScrapWebsiteUseCaseTest {
 
-    BeanConfiguration beanConfiguration = new BeanConfiguration();
+    UseCaseBeanConfiguration beanConfiguration = new UseCaseBeanConfiguration();
 
     @Test
     public void sameEanDifferentWebsites() {
