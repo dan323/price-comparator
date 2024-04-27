@@ -1,7 +1,7 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer;
 
-import com.dan232.pricer.adapter.db.entity.Category;
+import com.dan232.pricer.postgresql.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

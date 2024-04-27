@@ -14,6 +14,7 @@
     <modules>
         <module>comparator-domain</module>
         <module>comparator-rest</module>
+        <module>comparator-adapters</module>
     </modules>
 
 </project>

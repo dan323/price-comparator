@@ -17,6 +17,7 @@
         <module>web-scraper</module>
         <module>comparator</module>
         <module>comparator-app</module>
+        <module>database</module>
     </modules>
 
     <properties>

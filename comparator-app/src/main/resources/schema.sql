@@ -10,23 +10,31 @@ CREATE TABLE if not exists "shop" (
   "homesite" varchar
 );
 
+CREATE TABLE if not exists "product_shop" (
+  "product" bigint,
+  "shop" varchar,
+  "buy_url" varchar,
+  PRIMARY KEY ("product", "shop")
+);
+
 CREATE TABLE if not exists "price_rel" (
   "product" bigint,
   "shop" varchar,
   "date" timestamptz(6),
   "price" numeric(5,2),
-  "buy_url" varchar,
   PRIMARY KEY ("product", "shop", "date")
 );
 
 CREATE TABLE if not exists "product_name" (
-  "product" bigint PRIMARY KEY,
-  "name" varchar
+  "product" bigint,
+  "name" varchar,
+  PRIMARY KEY ("product", "name")
 );
 
 CREATE TABLE if not exists "product_category" (
-  "product" bigint PRIMARY KEY,
-  "category" varchar
+  "product" bigint,
+  "category" varchar,
+  PRIMARY KEY ("product", "category")
 );
 
 CREATE TABLE if not exists "shop_category" (
@@ -38,7 +46,8 @@ CREATE TABLE if not exists "shop_category" (
 
 CREATE TABLE if not exists "category" (
   "id" varchar PRIMARY KEY,
-  "name" varchar
+  "name" varchar,
+  "description" varchar
 );
 
 CREATE TABLE if not exists "subcategory" (
@@ -46,20 +55,18 @@ CREATE TABLE if not exists "subcategory" (
   "subcategory" varchar
 );
 
-ALTER TABLE "price_rel" ADD FOREIGN KEY ("shop") REFERENCES "shop" ("id");
-
-ALTER TABLE "price_rel" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
-
-ALTER TABLE "product_category" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
+ALTER TABLE "price_rel" ADD FOREIGN KEY ("shop","product") REFERENCES "product_shop" ("shop", "product");
 
 ALTER TABLE "subcategory" ADD FOREIGN KEY ("category") REFERENCES "category" ("id");
-
 ALTER TABLE "subcategory" ADD FOREIGN KEY ("subcategory") REFERENCES "category" ("id");
 
 ALTER TABLE "product_category" ADD FOREIGN KEY ("category") REFERENCES "category" ("id");
+ALTER TABLE "product_category" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
 
 ALTER TABLE "product_name" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
 
 ALTER TABLE "shop_category" ADD FOREIGN KEY ("shop") REFERENCES "shop" ("id");
-
 ALTER TABLE "shop_category" ADD FOREIGN KEY ("category") REFERENCES "category" ("id");
+
+ALTER TABLE "product_shop" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
+ALTER TABLE "product_shop" ADD FOREIGN KEY ("shop") REFERENCES "shop" ("id");
