@@ -1,12 +1,12 @@
 -- Categories
-insert into category(id,name) values
-('1','Eurogame'),
-('2','War'),
-('3','Abstract'),
-('4','Cards'),
-('5','Miniatures'),
-('6','Dados'),
-('7','LCG') ON CONFLICT DO NOTHING;
+insert into category(id,name,description) values
+('1','Eurogame','Posicionamiento de meeples'),
+('2','War','Guerra'),
+('3','Abstract','Abstracto'),
+('4','Cards','Con cartas'),
+('5','Miniatures','con muñequitos'),
+('6','Dados','con dados'),
+('7','LCG','con cartas de colección, pero no aleatorias') ON CONFLICT DO NOTHING;
 
 -- Category order relation
 insert into subcategory(category,subcategory) values
@@ -40,12 +40,19 @@ insert into product_name(product,name) values
 (5576816511924,'Lord of The Rings LCG: The Two Towers'),
 (5576816511924,'LOTR LCG: The Two Towers') ON CONFLICT DO NOTHING;
 
--- Prices
+insert into product_shop(product,shop,buy_url) values
+(7545175932419,'1','http://www.test.com/1'),
+(5576816511924,'2','http://www.test.com/2'),
+(7545175932419,'2','http://www.test.com/3'),
+(5576816511924,'1','http://www.test.com/4') ON CONFLICT DO NOTHING;
 
-insert into price_rel(product,shop,date,price,buy_url) values
-(5576816511924,'1','2024-04-24 12:00:00',12,'http://www.test.com/1'),
-(5576816511924,'1','2024-04-25 12:00:00',11,'http://www.test.com/1'),
-(5576816511924,'1','2024-04-23 12:00:00',10,'http://www.test.com/1'),
-(5576816511924,'2','2024-04-24 12:00:00',12,'http://www.test.com/2'),
-(5576816511924,'2','2024-04-25 12:00:00',12,'http://www.test.com/2'),
-(5576816511924,'2','2024-04-23 12:00:00',14,'http://www.test.com/2') ON CONFLICT DO NOTHING;
+-- Prices
+insert into price_rel(product,shop,date,price) values
+(5576816511924,'1','2024-04-24 12:00:00',12),
+(5576816511924,'1','2024-04-25 12:00:00',11),
+(5576816511924,'1','2024-04-23 12:00:00',10),
+(7545175932419,'2','2024-04-24 12:00:00',12),
+(7545175932419,'1','2024-04-23 12:00:00',10),
+(5576816511924,'2','2024-04-24 12:00:00',12),
+(5576816511924,'2','2024-04-25 12:00:00',12),
+(5576816511924,'2','2024-04-23 12:00:00',14) ON CONFLICT DO NOTHING;
