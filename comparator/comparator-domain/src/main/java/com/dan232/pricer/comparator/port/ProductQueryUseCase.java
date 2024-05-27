@@ -5,6 +5,7 @@ import com.dan232.pricer.comparator.model.ProductBasic;
 import com.dan232.pricer.comparator.model.ProductPriced;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductQueryUseCase {
 
@@ -40,7 +41,7 @@ public interface ProductQueryUseCase {
         /**
          * @return one product with all details
          */
-        ProductPriced perform();
+        Optional<ProductPriced> perform();
     }
 
     interface GetProductsByCategory {

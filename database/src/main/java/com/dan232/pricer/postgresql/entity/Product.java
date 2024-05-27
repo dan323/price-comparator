@@ -1,0 +1,39 @@
+// Copyright (c) 2024 Daniel de la Concepción Sáez
+package com.dan232.pricer.postgresql.entity;
+
+import jakarta.persistence.*;
+
+import java.math.BigInteger;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+@Entity
+@Table(name = "product")
+public class Product {
+
+    @Id
+    private BigInteger ean;
+
+    private String name;
+
+    private String image;
+
+    @OneToMany(mappedBy = "category")
+    private Set<ProductCategory> categories;
+
+    public Set<Category> getCategories() {
+        return categories.stream().map(ProductCategory::getCategory).collect(Collectors.toSet());
+    }
+
+    public BigInteger getEan() {
+        return ean;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+}

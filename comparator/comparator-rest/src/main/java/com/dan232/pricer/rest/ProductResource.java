@@ -23,15 +23,12 @@ public class ProductResource {
     @GetMapping("/product/{productId}")
     public ResponseEntity<ProductPriced>
     getProductById(final @PathVariable String productId) {
-        var product = useCase.getProduct(productId).perform();
-        if (product != null) {
-            return ResponseEntity.ok(product);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return useCase.getProduct(productId).perform()
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/product")
+    @GetMapping("/products")
     public ResponseEntity<List<ProductBasic>> getAllProducts() {
         var products = useCase.getProducts().perform();
         if (products == null || products.isEmpty()) {
@@ -41,7 +38,7 @@ public class ProductResource {
         }
     }
 
-    @GetMapping("/product/category/{category}")
+    @GetMapping("/products/category/{category}")
     public ResponseEntity<List<ProductBasic>>
     getProductsByCategory(final @PathVariable String category) {
         var products = useCase.getProductsByCategory(category).perform();
