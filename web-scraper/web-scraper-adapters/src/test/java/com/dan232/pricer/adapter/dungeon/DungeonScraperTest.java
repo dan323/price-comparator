@@ -14,5 +14,4 @@ public class DungeonScraperTest {
             Assertions.fail();
         }
     }
-
 }

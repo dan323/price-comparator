@@ -13,7 +13,7 @@ import java.util.List;
 public final class DungeonMarvelsOffersScraperAdapter implements ScraperPort {
 
     private static final String DUNGEON_MARVELS_OFFER_URL =
-            "https://dungeonmarvels.com/1397-rebajas-juegos";
+            "https://dungeonmarvels.com/217-super-ofertas";
     private static final int PAGE_LIMIT = 100;
 
     // Done this way to be able to test limiting
