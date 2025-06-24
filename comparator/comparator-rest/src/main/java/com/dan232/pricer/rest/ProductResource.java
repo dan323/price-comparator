@@ -6,6 +6,7 @@ import com.dan232.pricer.comparator.model.ProductBasic;
 import com.dan232.pricer.comparator.model.ProductPriced;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class ProductResource {
         this.useCase = queryUseCase;
     }
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/api/product/{productId}")
     public ResponseEntity<ProductPriced>
     getProductById(final @PathVariable String productId) {
         return useCase.getProduct(productId).perform()
@@ -28,7 +29,7 @@ public class ProductResource {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/products")
+    @GetMapping("/api/product")
     public ResponseEntity<List<ProductBasic>> getAllProducts() {
         var products = useCase.getProducts().perform();
         if (products == null || products.isEmpty()) {
@@ -38,7 +39,7 @@ public class ProductResource {
         }
     }
 
-    @GetMapping("/products/category/{category}")
+    @GetMapping("/api/product/category/{category}")
     public ResponseEntity<List<ProductBasic>>
     getProductsByCategory(final @PathVariable String category) {
         var products = useCase.getProductsByCategory(category).perform();

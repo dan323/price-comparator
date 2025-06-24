@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "price_rel")
+@IdClass(PriceRelId.class)
 public class PriceRel {
 
     @Id
@@ -31,5 +32,17 @@ public class PriceRel {
 
     public double getPrice() {
         return price;
+    }
+
+    public void setProductShop(ProductShop productShop) {
+        this.productShop = productShop;
+    }
+
+    public void setDateAsNow() {
+        this.date = new Date();
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

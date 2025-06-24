@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.regex.Pattern;
 
 public class ScrapedGameFromGrid {
@@ -16,35 +17,46 @@ public class ScrapedGameFromGrid {
     private final Element game;
 
     public ScrapedGameFromGrid(final Element scrapedGame) {
-        if (scrapedGame.is("div.pro_outer_box")) {
+        if (scrapedGame.is("div.product")) {
             this.game = scrapedGame;
         } else {
-            var message =
-                    "This element is not the product the scraper"
-                            + " is implemented for.";
+            var message = "This element is not the product the scraper is implemented for.";
             throw new RuntimeException(new IOException(message));
         }
-    }
-
-    /**
-     * @return metadata elements
-     */
-    public ScrapedMetaData getMeta() {
-        return new ScrapedMetaData(game.select("meta"));
     }
 
     /**
      * @return game name if found
      */
     public Optional<String> getName() {
-        return Optional.ofNullable(game.selectFirst("a.product-name"))
-                .map(element -> element.attribute("title"))
-                .map(Attribute::getValue);
+        return Optional.ofNullable(game.selectFirst(".product-title"))
+                .map(element -> element.selectFirst("a"))
+                .map(Element::text);
     }
 
     public Optional<String> getImage() {
         return Optional.ofNullable(game.selectFirst("img"))
                 .map(element -> element.attribute("src"))
+                .map(Attribute::getValue);
+    }
+
+    public Optional<Double> getPrice() {
+        Pattern pattern = Pattern.compile("(\\d*),(\\d{2})");
+        return Optional.ofNullable(game.selectFirst("span.price"))
+                .map(Element::text)
+                .flatMap(price -> {
+                    var match = pattern.matcher(price);
+                    if (match.find()) {
+                        return Optional.of(Double.parseDouble(match.group(1) + "." + match.group(2)));
+                    } else {
+                        return Optional.empty();
+                    }
+                });
+    }
+
+    public Optional<String> getDetailsURL() {
+        return Optional.ofNullable(game.selectFirst("a"))
+                .map(element -> element.attribute("href"))
                 .map(Attribute::getValue);
     }
 
@@ -54,36 +66,39 @@ public class ScrapedGameFromGrid {
      * @return model representing scraped data
      */
     public Optional<WebProductPrice> toModel() {
-        return getName().flatMap(name -> getMeta()
-                .getPrice()
-                .flatMap(price -> getMeta()
-                        .getDetailsURL()
-                        .flatMap(url -> getImage()
-                                .flatMap(image -> {
-                                    try {
-                                        Pattern pattern =
-                                                Pattern.compile(".*-([^-]*)\\.html$");
-                                        var matcher = pattern.matcher(url);
-                                        if (matcher.matches()) {
-                                            var ean = matcher.group(1);
-                                            return Optional.of(
-                                                    new WebProductPrice(ean,
-                                                            name,
-                                                            price,
-                                                            URI.create(url).toURL(),
-                                                            MathomUtils
-                                                                    .sendPrice(
-                                                                            price),
-                                                            "MATHOM",
-                                                            URI.create(image).toURL()));
-                                        }
-                                        return Optional.empty();
-                                    } catch (MalformedURLException e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                })
-                        )
-                )
-        );
+        var nameOpt = getName();
+        var priceOpt = getPrice();
+        var urlOpt = getDetailsURL();
+        var imageOpt = getImage();
+
+        if (nameOpt.isEmpty() || priceOpt.isEmpty() || urlOpt.isEmpty() || imageOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        var name = nameOpt.get();
+        double price = priceOpt.get();
+        var url = urlOpt.get();
+        var image = imageOpt.get();
+
+        try {
+            var pattern = Pattern.compile(".*-([^-]*)\\.html$");
+            var matcher = pattern.matcher(url);
+            if (!matcher.matches()) {
+                return Optional.empty();
+            }
+            var ean = matcher.group(1);
+
+            return Optional.of(new WebProductPrice(
+                    ean,
+                    name,
+                    price,
+                    URI.create(url).toURL(),
+                    MathomUtils.sendPrice(price),
+                    "MATHOM",
+                    URI.create(image).toURL()
+            ));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

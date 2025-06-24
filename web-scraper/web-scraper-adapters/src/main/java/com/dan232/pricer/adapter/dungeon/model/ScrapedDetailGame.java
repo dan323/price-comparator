@@ -23,6 +23,9 @@ public class ScrapedDetailGame {
                 .map(Element::text);
     }
 
+    /**
+     * @return URL to the image, if it exists
+     */
     public Optional<String> getImage() {
         return Optional.ofNullable(document.selectFirst("div.images-container img"))
                 .map(element -> element.attribute("src"))

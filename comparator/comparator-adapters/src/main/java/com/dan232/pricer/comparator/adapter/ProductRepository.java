@@ -44,6 +44,7 @@ public class ProductRepository implements ProductPort {
     public Optional<ProductPriced> getProductByEan(String id) {
         return productRepo.findById(new BigInteger(id))
                 .map(product -> new ProductPriced(this.toModel(product),
+                        // TODO take only the last price in each shop
                         priceRepo.findByProduct(product).stream().map(this::toModel).toList()));
 
     }

@@ -64,6 +64,10 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.dan232.pricer.Application</mainClass>
+                    <skip>false</skip>
+                </configuration>
                 <executions>
                     <execution>
                         <id>package</id>

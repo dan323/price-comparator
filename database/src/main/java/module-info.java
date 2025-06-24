@@ -4,6 +4,7 @@ open module pricer.db {
     requires jakarta.persistence;
     requires jakarta.validation;
     requires org.hibernate.orm.core;
+    requires spring.data.commons;
 
     exports com.dan232.pricer.postgresql;
     exports com.dan232.pricer.postgresql.entity;

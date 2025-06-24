@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "product_shop")
+@IdClass(ProductShopId.class)
 public class ProductShop {
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -24,5 +25,17 @@ public class ProductShop {
 
     public Product getProduct() {
         return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public void setBuyUrl(String url) {
+        this.buyUrl = url;
     }
 }

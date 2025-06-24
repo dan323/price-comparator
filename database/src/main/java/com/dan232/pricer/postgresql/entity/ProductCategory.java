@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "product_category")
+@IdClass(ProductCategoryId.class)
 public class ProductCategory {
 
     @ManyToOne(cascade = CascadeType.ALL)

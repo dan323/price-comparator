@@ -5,21 +5,21 @@ CREATE TABLE if not exists "product" (
 );
 
 CREATE TABLE if not exists "shop" (
-  "id" varchar PRIMARY KEY,
+  "id" bigint PRIMARY KEY,
   "name" varchar,
   "homesite" varchar
 );
 
 CREATE TABLE if not exists "product_shop" (
   "product" bigint,
-  "shop" varchar,
+  "shop" bigint,
   "buy_url" varchar,
   PRIMARY KEY ("product", "shop")
 );
 
 CREATE TABLE if not exists "price_rel" (
   "product" bigint,
-  "shop" varchar,
+  "shop" bigint,
   "date" timestamptz(6),
   "price" numeric(5,2),
   PRIMARY KEY ("product", "shop", "date")
@@ -33,26 +33,26 @@ CREATE TABLE if not exists "product_name" (
 
 CREATE TABLE if not exists "product_category" (
   "product" bigint,
-  "category" varchar,
+  "category" bigint,
   PRIMARY KEY ("product", "category")
 );
 
 CREATE TABLE if not exists "shop_category" (
-  "shop" varchar,
-  "category" varchar,
+  "shop" bigint,
+  "category" bigint,
   "shop_category_name" varchar,
   PRIMARY KEY ("shop", "category")
 );
 
 CREATE TABLE if not exists "category" (
-  "id" varchar PRIMARY KEY,
+  "id" bigint PRIMARY KEY,
   "name" varchar,
   "description" varchar
 );
 
 CREATE TABLE if not exists "subcategory" (
-  "category" varchar PRIMARY KEY,
-  "subcategory" varchar
+  "category" bigint PRIMARY KEY,
+  "subcategory" bigint
 );
 
 ALTER TABLE "price_rel" ADD FOREIGN KEY ("shop","product") REFERENCES "product_shop" ("shop", "product");
@@ -70,3 +70,5 @@ ALTER TABLE "shop_category" ADD FOREIGN KEY ("category") REFERENCES "category" (
 
 ALTER TABLE "product_shop" ADD FOREIGN KEY ("product") REFERENCES "product" ("ean");
 ALTER TABLE "product_shop" ADD FOREIGN KEY ("shop") REFERENCES "shop" ("id");
+
+CREATE SEQUENCE IF NOT EXISTS shop_seq START WITH 1 INCREMENT BY 50;

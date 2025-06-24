@@ -18,7 +18,7 @@ public class Product {
 
     private String image;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "product")
     private Set<ProductCategory> categories;
 
     public Set<Category> getCategories() {
@@ -35,5 +35,17 @@ public class Product {
 
     public String getImage() {
         return image;
+    }
+
+    public void setEan(BigInteger ean) {
+        this.ean = ean;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

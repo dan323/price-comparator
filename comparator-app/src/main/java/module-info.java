@@ -1,6 +1,5 @@
 module comparator.exec {
     requires spring.boot.autoconfigure;
-    requires spring.context;
     requires spring.boot;
     requires spring.beans;
     requires spring.core;
@@ -10,4 +9,6 @@ module comparator.exec {
 
     opens com.dan232.pricer to spring.core, spring.beans, spring.context;
     requires web.scraper.adapters;
+    requires web.scraper.domain;
+    requires spring.context;
 }

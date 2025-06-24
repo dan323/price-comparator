@@ -18,12 +18,12 @@ public class CategoryResource {
         this.useCase = queryUseCase;
     }
 
-    @GetMapping("/category/{name}")
+    @GetMapping("/api/category/{name}")
     public ResponseEntity<Category> getCategoryByName(@PathVariable("name") String name) {
         return ResponseEntity.of(useCase.getCategory(name).perform());
     }
 
-    @GetMapping("/category")
+    @GetMapping("/api/category")
     public ResponseEntity<Category> getTreeOfCategories(){
         return ResponseEntity.ok(useCase.getRoot().perform());
     }
