@@ -11,4 +11,5 @@
     <suppress checks="MagicNumber" files="EANUtil\.java"/>
     <suppress checks="MagicNumber" files="MathomUtils\.java"/>
     <suppress checks="MissingJavadocMethod" files=".*(Resource|Controller)\.java"/>
+    <suppress checks="DesignForExtension" files=".*com/dan232/pricer/postgresql/entity/.*"/>
 </suppressions>

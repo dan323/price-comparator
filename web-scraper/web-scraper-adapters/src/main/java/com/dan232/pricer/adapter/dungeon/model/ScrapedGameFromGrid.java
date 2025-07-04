@@ -28,29 +28,41 @@ public class ScrapedGameFromGrid {
      * @return the data as the model if possible
      */
     public Optional<WebProductPrice> toModel() {
-        return getDetailURL().flatMap(url -> goTo()
-                .flatMap(detail -> detail.getName()
-                        .flatMap(name -> detail.getEAN()
-                                .flatMap(ean -> getPrice()
-                                        .flatMap(price ->
-                                                detail.getImage().map(image ->
-                                                {
-                                                    try {
-                                                        return new WebProductPrice(ean,
-                                                                name,
-                                                                price,
-                                                                URI.create(url).toURL(),
-                                                                SEND_PRICE,
-                                                                "DUNGEONS MARVEL", URI.create(image).toURL());
-                                                    } catch (MalformedURLException e) {
-                                                        throw new RuntimeException(e);
-                                                    }
-                                                })
-                                        )
-                                )
-                        )
-                )
-        );
+        Optional<String> urlOpt = getDetailURL();
+        Optional<ScrapedDetailGame> detailOpt = goTo();
+
+        if (urlOpt.isEmpty() || detailOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        ScrapedDetailGame detail = detailOpt.get();
+        Optional<String> nameOpt = detail.getName();
+        Optional<String> eanOpt = detail.getEAN();
+        Optional<String> imageOpt = detail.getImage();
+        Optional<Double> priceOpt = getPrice();
+
+        if (nameOpt.isEmpty() || eanOpt.isEmpty()
+                || imageOpt.isEmpty() || priceOpt.isEmpty()) {
+            return Optional.empty();
+        }
+
+        try {
+            String name = nameOpt.get().replaceAll("(?i)\\s*\\"
+                    + "((Inglés|CATALÀ|Español|Seminuevo|Castellano|"
+                    + "Multidioma)\\)", "").trim();
+            return Optional.of(new WebProductPrice(
+                    eanOpt.get(),
+                    name,
+                    priceOpt.get(),
+                    URI.create(urlOpt.get()).toURL(),
+                    SEND_PRICE,
+                    "DUNGEONS MARVEL",
+                    URI.create(imageOpt.get()).toURL(),
+                    null
+            ));
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Optional<ScrapedDetailGame> goTo() {

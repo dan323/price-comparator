@@ -5,13 +5,14 @@ import com.dan232.pricer.comparator.port.ProductQueryUseCase;
 import com.dan232.pricer.comparator.model.ProductBasic;
 import com.dan232.pricer.comparator.model.ProductPriced;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class ProductResource {
 

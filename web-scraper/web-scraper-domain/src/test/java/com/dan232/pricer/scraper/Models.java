@@ -1,5 +1,6 @@
 package com.dan232.pricer.scraper;
 
+import com.dan232.pricer.scraper.model.BggUrl;
 import com.dan232.pricer.scraper.model.WebProductPrice;
 
 import java.net.MalformedURLException;
@@ -18,7 +19,8 @@ public class Models {
                 new URI("https://www.someSite.com").toURL(),
                 RANDOM.nextDouble(),
                 "SHOP" + shopCount,
-                new URI("http://www.someSite.com/image.jpg").toURL());
+                new URI("http://www.someSite.com/image.jpg").toURL(),
+                new BggUrl(new URI("http://www.false.com").toURL(), false));
     }
 
     public static String randomEan() {

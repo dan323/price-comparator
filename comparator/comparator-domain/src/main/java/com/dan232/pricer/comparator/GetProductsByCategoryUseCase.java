@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.comparator;
 
 import com.dan232.pricer.comparator.model.ProductBasic;
@@ -7,12 +8,13 @@ import com.dan232.pricer.comparator.port.ProductQueryUseCase;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetProductsByCategoryUseCase implements ProductQueryUseCase.GetProductsByCategory {
+final class GetProductsByCategoryUseCase implements
+        ProductQueryUseCase.GetProductsByCategory {
 
     private final ProductPort productPort;
     private final String category;
 
-    public GetProductsByCategoryUseCase(ProductPort productPort, String category) {
+    GetProductsByCategoryUseCase(ProductPort productPort, String category) {
         this.productPort = productPort;
         this.category = category;
     }

@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.regex.Pattern;
 
 public class ScrapedGameFromGrid {
@@ -20,7 +19,8 @@ public class ScrapedGameFromGrid {
         if (scrapedGame.is("div.product")) {
             this.game = scrapedGame;
         } else {
-            var message = "This element is not the product the scraper is implemented for.";
+            var message = "This element is not the"
+                    + " product the scraper is implemented for.";
             throw new RuntimeException(new IOException(message));
         }
     }
@@ -31,7 +31,11 @@ public class ScrapedGameFromGrid {
     public Optional<String> getName() {
         return Optional.ofNullable(game.selectFirst(".product-title"))
                 .map(element -> element.selectFirst("a"))
-                .map(Element::text);
+                .map(Element::text)
+                .map(name -> name.replaceAll("(?i)\\s*\\([^)]*"
+                        + "(English|Inglés|Spanish|Español|Seminuevo|"
+                        + "SEMINUEVO|Castellano|Multidioma)[^)]*\\)\\s*",
+                        "").trim());
     }
 
     public Optional<String> getImage() {
@@ -47,7 +51,9 @@ public class ScrapedGameFromGrid {
                 .flatMap(price -> {
                     var match = pattern.matcher(price);
                     if (match.find()) {
-                        return Optional.of(Double.parseDouble(match.group(1) + "." + match.group(2)));
+                        return Optional.of(
+                                Double.parseDouble(
+                                        match.group(1) + "." + match.group(2)));
                     } else {
                         return Optional.empty();
                     }
@@ -71,7 +77,8 @@ public class ScrapedGameFromGrid {
         var urlOpt = getDetailsURL();
         var imageOpt = getImage();
 
-        if (nameOpt.isEmpty() || priceOpt.isEmpty() || urlOpt.isEmpty() || imageOpt.isEmpty()) {
+        if (nameOpt.isEmpty() || priceOpt.isEmpty()
+                || urlOpt.isEmpty() || imageOpt.isEmpty()) {
             return Optional.empty();
         }
 
@@ -90,12 +97,15 @@ public class ScrapedGameFromGrid {
 
             return Optional.of(new WebProductPrice(
                     ean,
-                    name,
+                    name.replaceAll("(?i)\\s*\\((Inglés|"
+                            + "CATALÀ|Español|Seminuevo|Castellano"
+                            + "|Multidioma)\\)", "").trim(),
                     price,
                     URI.create(url).toURL(),
                     MathomUtils.sendPrice(price),
                     "MATHOM",
-                    URI.create(image).toURL()
+                    URI.create(image).toURL(),
+                    null
             ));
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);

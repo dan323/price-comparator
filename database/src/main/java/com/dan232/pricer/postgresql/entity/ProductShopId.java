@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.postgresql.entity;
 
 import java.io.Serializable;
@@ -10,7 +11,8 @@ public class ProductShopId implements Serializable {
     private Long shop;         // tipo igual que Shop.id
 
     // Constructor sin argumentos (obligatorio)
-    public ProductShopId() {}
+    public ProductShopId() {
+    }
 
     public ProductShopId(BigInteger product, Long shop) {
         this.product = product;
@@ -39,10 +41,14 @@ public class ProductShopId implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProductShopId that)) return false;
-        return Objects.equals(product, that.product) &&
-                Objects.equals(shop, that.shop);
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProductShopId that)) {
+            return false;
+        }
+        return Objects.equals(product, that.product)
+                && Objects.equals(shop, that.shop);
     }
 
     @Override

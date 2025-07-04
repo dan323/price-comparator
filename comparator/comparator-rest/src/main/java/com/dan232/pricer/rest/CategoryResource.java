@@ -3,12 +3,13 @@ package com.dan232.pricer.rest;
 
 import com.dan232.pricer.comparator.model.Category;
 import com.dan232.pricer.comparator.port.CategoryQueryUseCase;
-import com.dan232.pricer.comparator.port.ProductQueryUseCase;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class CategoryResource {
 
@@ -19,12 +20,15 @@ public class CategoryResource {
     }
 
     @GetMapping("/api/category/{name}")
-    public ResponseEntity<Category> getCategoryByName(@PathVariable("name") String name) {
-        return ResponseEntity.of(useCase.getCategory(name).perform());
+    public ResponseEntity<Category>
+    getCategoryByName(@PathVariable("name") String name) {
+        return ResponseEntity.of(useCase
+                .getCategory(name)
+                .perform());
     }
 
     @GetMapping("/api/category")
-    public ResponseEntity<Category> getTreeOfCategories(){
+    public ResponseEntity<Category> getTreeOfCategories() {
         return ResponseEntity.ok(useCase.getRoot().perform());
     }
 

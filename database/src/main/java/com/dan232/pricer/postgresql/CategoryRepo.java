@@ -11,9 +11,14 @@ import java.util.stream.Collectors;
 @Repository
 public interface CategoryRepo extends JpaRepository<Category, String> {
 
+    /**
+     * List categories without parent.
+     *
+     * @return all categories that have no parent
+     */
     default Set<Category> topCategories() {
         return findAll().stream()
-                .filter(category -> category.getSuperCategories().isEmpty())
+                .filter(category -> category.getSuperCategory() == null)
                 .collect(Collectors.toSet());
     }
 

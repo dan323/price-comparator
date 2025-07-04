@@ -51,8 +51,9 @@ CREATE TABLE if not exists "category" (
 );
 
 CREATE TABLE if not exists "subcategory" (
-  "category" bigint PRIMARY KEY,
-  "subcategory" bigint
+  "category" bigint,
+  "subcategory" bigint,
+  PRIMARY KEY ("category", "subcategory")
 );
 
 ALTER TABLE "price_rel" ADD FOREIGN KEY ("shop","product") REFERENCES "product_shop" ("shop", "product");

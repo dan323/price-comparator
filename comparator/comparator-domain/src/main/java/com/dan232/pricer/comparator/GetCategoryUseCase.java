@@ -13,13 +13,18 @@ final class GetCategoryUseCase implements CategoryQueryUseCase.GetCategory {
     private final String name;
 
 
-    GetCategoryUseCase(CategoryPort categoryPort, String id){
+    GetCategoryUseCase(CategoryPort categoryPort, String id) {
         this.categoryPort = categoryPort;
         this.name = id;
     }
 
     @Override
     public Optional<Category> perform() {
-        return categoryPort.getAllCategories().stream().filter(category -> category.name().equals(name)).findFirst();
+        return categoryPort.getAllCategories()
+                .stream()
+                .filter(category -> category
+                        .name()
+                        .equals(name))
+                .findFirst();
     }
 }

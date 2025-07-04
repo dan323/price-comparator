@@ -1,7 +1,14 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.postgresql.entity;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinColumns;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
@@ -13,10 +20,10 @@ public class PriceRel {
     @Id
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumns({@JoinColumn(name = "product"), @JoinColumn(name = "shop")})
-    ProductShop productShop;
+    private ProductShop productShop;
     @Id
-    Date date;
-    double price;
+    private Date date;
+    private double price;
 
     public Product getProduct() {
         return productShop.getProduct();
@@ -40,6 +47,10 @@ public class PriceRel {
 
     public void setDateAsNow() {
         this.date = new Date();
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public void setPrice(double price) {

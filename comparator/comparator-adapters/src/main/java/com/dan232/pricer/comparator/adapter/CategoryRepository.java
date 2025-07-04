@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.comparator.adapter;
 
 import com.dan232.pricer.comparator.model.Category;
@@ -11,24 +12,39 @@ public class CategoryRepository implements CategoryPort {
 
     private final CategoryRepo dbRepo;
 
-    public CategoryRepository(CategoryRepo dbRepo){
+    public CategoryRepository(CategoryRepo dbRepo) {
         this.dbRepo = dbRepo;
     }
 
     @Override
     public Set<Category> getAllCategories() {
-        return dbRepo.findAll().stream().map(this::toModel).collect(Collectors.toSet());
+        return dbRepo.findAll()
+                .stream()
+                .map(this::toModel)
+                .collect(Collectors.toSet());
     }
 
     @Override
     public Category getRootCategory() {
-        return new Category("root", dbRepo.topCategories().stream().map(this::toModel).collect(Collectors.toSet()),"Nodo padre");
+        return new Category("root", dbRepo.topCategories()
+                .stream()
+                .map(this::toModel)
+                .collect(Collectors.toSet()), "Nodo padre");
     }
 
     /**
-     * We are assuming that the categories form a tree, hence no loops
+     * We are assuming that the categories form a tree, hence no loops.
+     *
+     * @param category The category to transform
+     * @return The same category, but not an entity
      */
-    private Category toModel(com.dan232.pricer.postgresql.entity.Category category){
-        return new Category(category.getName(), category.getSubCategories().stream().map(this::toModel).collect(Collectors.toSet()), category.getDescription());
+    private Category toModel(com.dan232.pricer.postgresql.entity.Category
+                                     category) {
+        return new Category(category.getName(),
+                category.getSubCategories()
+                        .stream()
+                    .map(this::toModel)
+                    .collect(Collectors.toSet()),
+                category.getDescription());
     }
 }

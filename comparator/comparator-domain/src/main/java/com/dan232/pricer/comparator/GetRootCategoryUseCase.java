@@ -5,11 +5,12 @@ import com.dan232.pricer.comparator.model.Category;
 import com.dan232.pricer.comparator.port.CategoryPort;
 import com.dan232.pricer.comparator.port.CategoryQueryUseCase;
 
-final class GetRootCategoryUseCase implements CategoryQueryUseCase.GetRootCategory {
+final class GetRootCategoryUseCase implements
+        CategoryQueryUseCase.GetRootCategory {
 
     private final CategoryPort categoryPort;
 
-    GetRootCategoryUseCase(CategoryPort categoryPort){
+    GetRootCategoryUseCase(CategoryPort categoryPort) {
         this.categoryPort = categoryPort;
     }
 

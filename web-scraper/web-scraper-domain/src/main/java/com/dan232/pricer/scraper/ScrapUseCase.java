@@ -5,7 +5,6 @@ import com.dan232.pricer.scraper.port.SavePort;
 import com.dan232.pricer.scraper.port.ScrapWebsite;
 import com.dan232.pricer.scraper.port.ScraperPort;
 
-import java.io.IOException;
 import java.util.List;
 
 public final class ScrapUseCase implements ScrapWebsite.ScrapWebsites {

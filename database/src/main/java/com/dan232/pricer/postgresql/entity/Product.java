@@ -1,7 +1,10 @@
 // Copyright (c) 2024 Daniel de la Concepción Sáez
 package com.dan232.pricer.postgresql.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.math.BigInteger;
 import java.util.Set;
@@ -22,7 +25,9 @@ public class Product {
     private Set<ProductCategory> categories;
 
     public Set<Category> getCategories() {
-        return categories.stream().map(ProductCategory::getCategory).collect(Collectors.toSet());
+        return categories.stream()
+                .map(ProductCategory::getCategory)
+                .collect(Collectors.toSet());
     }
 
     public BigInteger getEan() {
@@ -47,5 +52,13 @@ public class Product {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Product {EAN=" + ean
+                + ";NAME=" + name
+                + ";IMAGE=" + image
+                + ";CATS=" + categories + "}";
     }
 }

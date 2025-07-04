@@ -6,6 +6,11 @@ insert into category(id,name,description) values
 (4,'Cards','Con cartas'),
 (5,'Miniatures','con muñequitos'),
 (6,'Dados','con dados'),
+(8,'CCG','cartas de colección'),
+(9,'Deckbuilding','construcción de mazos'),
+(10,'Tricks','bazas'),
+(11,'Dados','con dados'),
+(12,'Dados','con dados'),
 (7,'LCG','con cartas de colección, pero no aleatorias') ON CONFLICT DO NOTHING;
 
 -- Category order relation

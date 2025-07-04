@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.postgresql.entity;
 
 import java.io.Serializable;
@@ -10,7 +11,8 @@ public class PriceRelId implements Serializable {
     private Date date;         // tipo igual que Shop.id
 
     // Constructor sin argumentos (obligatorio)
-    public PriceRelId() {}
+    public PriceRelId() {
+    }
 
     public PriceRelId(ProductShop productShop, Date date) {
         this.productShop = productShop;
@@ -31,7 +33,7 @@ public class PriceRelId implements Serializable {
         return date;
     }
 
-    public void setDate(Date shop) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -39,10 +41,14 @@ public class PriceRelId implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof PriceRelId that)) return false;
-        return Objects.equals(productShop, that.productShop) &&
-                Objects.equals(date, that.date);
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof PriceRelId that)) {
+            return false;
+        }
+        return Objects.equals(productShop, that.productShop)
+                && Objects.equals(date, that.date);
     }
 
     @Override

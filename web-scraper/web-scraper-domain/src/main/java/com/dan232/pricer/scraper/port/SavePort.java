@@ -3,8 +3,6 @@ package com.dan232.pricer.scraper.port;
 
 import com.dan232.pricer.scraper.model.WebProductPrice;
 
-import java.io.IOException;
-
 public interface SavePort {
 
     /**

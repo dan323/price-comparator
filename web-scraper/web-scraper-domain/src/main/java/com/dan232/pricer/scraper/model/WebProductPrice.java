@@ -9,6 +9,6 @@ public record WebProductPrice(String EAN,
                               URL homeSite,
                               double sendPrice,
                               String shopName,
-                              URL image) {
-
+                              URL image,
+                              BggUrl bggUrl) {
 }

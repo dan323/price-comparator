@@ -8,7 +8,11 @@ public record ProductPriced(ProductBasic productBasic,
 
     public ProductPriced(ProductBasic productBasic, List<ShopPrice> priceList) {
         var min = priceList.stream().mapToDouble(ShopPrice::price).min();
-        this.productBasic = new ProductBasic(productBasic.name(), min.orElse(Double.NaN), productBasic.categories(), productBasic.image());
+        this.productBasic = new ProductBasic(productBasic.name(),
+                productBasic.ean(),
+                min.orElse(Double.NaN),
+                productBasic.categories(),
+                productBasic.image());
         this.priceList = priceList;
     }
 

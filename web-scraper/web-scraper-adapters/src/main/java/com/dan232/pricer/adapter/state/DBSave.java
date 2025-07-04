@@ -1,3 +1,4 @@
+// Copyright (c) 2025 Daniel de la Concepción Sáez
 package com.dan232.pricer.adapter.state;
 
 import com.dan232.pricer.postgresql.PriceRepo;
@@ -47,12 +48,14 @@ public class DBSave implements SavePort {
                         .orElseGet(() -> {
                             Shop s = new Shop();
                             s.setName(webProductPrice.shopName());
-                            s.setHomesite(webProductPrice.homeSite().toString());
+                            s.setHomesite(webProductPrice
+                                    .homeSite().toString());
                             return shopRepo.save(s);
                         });
 
                 // 3. Buscar o crear ProductShop
-                ProductShop productShop = productShopRepo.findByProductAndShop(product, shop)
+                ProductShop productShop = productShopRepo
+                        .findByProductAndShop(product, shop)
                         .orElseGet(() -> {
                             ProductShop ps = new ProductShop();
                             ps.setProduct(product);

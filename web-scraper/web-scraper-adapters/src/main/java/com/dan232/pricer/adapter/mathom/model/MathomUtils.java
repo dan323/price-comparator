@@ -5,7 +5,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public final class MathomUtils {
@@ -26,7 +25,8 @@ public final class MathomUtils {
             throws IOException {
         var elms = doc.selectFirst("div.products");
         if (elms == null) {
-            throw new IOException("The product_list ul element could not be found");
+            throw new IOException("The product_list ul element"
+                    + " could not be found");
         }
         return elms.select("div.product").stream();
     }
